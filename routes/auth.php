@@ -75,4 +75,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('todos/{todo}/generate-public-link', [ToDoController::class, 'generatePublicLink'])
         ->name('todos.generatePublicLink');
+
+    Route::get('todos/{todo}/show', [ToDoController::class, 'show'])
+        ->name('todos.show');
 });

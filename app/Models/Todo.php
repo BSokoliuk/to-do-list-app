@@ -12,4 +12,9 @@ class Todo extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function changes()
+    {
+        return $this->hasMany(TaskChange::class, 'task_id');
+    }
 }

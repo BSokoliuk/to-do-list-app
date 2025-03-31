@@ -29,13 +29,14 @@
                                     <td class="py-3 px-4">{{ $todo->priority }}</td>
                                     <td class="py-3 px-4">{{ $todo->end_date }}</td>
                                     <td class="py-3 px-4 text-right">
+                                        <a href="{{ route('todos.show', $todo) }}" class="dark:text-white text-black hover:underline block">View/See changes</a>
                                         <a href="{{ route('todos.edit', $todo) }}" class="text-blue-500 hover:underline block">Edit</a>
+                                        <button onclick="generatePublicLink('{{ $todo->id }}')" class="text-green-500 hover:underline w-full block text-right">Generate Link</button>
                                         <form onsubmit="confirmDeleting(event, '{{ $todo->title }}')" action="{{ route('todos.destroy', $todo) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-500 hover:underline">Delete</button>
                                         </form>
-                                        <button onclick="generatePublicLink('{{ $todo->id }}')" class="text-green-500 hover:underline w-full block text-right">Generate Link</button>
                                     </td>
                                 </tr>
                             @endforeach

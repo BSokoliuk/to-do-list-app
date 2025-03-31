@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TaskChange;
 use App\Models\Todo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -77,6 +78,25 @@ class ToDoController extends Controller
     ]);
 
     $todo = $request->user()->todos()->findOrFail($id);
+    $changes = [];
+
+    foreach ($validated as $key => $value) {
+      if ($todo->$key !== $value) {
+        $changes[] = new TaskChange([
+            'task_id' => $todo->id,
+            'field' => $key,
+            'old_value' => $todo->$key,
+            'new_value' => $value,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+      }
+    }
+
+    if (!empty($changes)) {
+      $todo->changes()->saveMany($changes);
+    }
+
     $todo->update($validated);
 
     return Redirect::route('todos.index')->with('status', 'todo-updated');
@@ -116,5 +136,12 @@ class ToDoController extends Controller
                 ->firstOrFail();
 
     return view('todos.public', compact('todo'));
+  }
+
+  public function show(Request $request, $id): View
+  {
+    $todo = $request->user()->todos()->findOrFail($id);
+
+    return view('todos.show', compact('todo'));
   }
 }
