@@ -3,6 +3,12 @@
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <div class="mb-4 flex justify-end">
+                        <a href="{{ route('todos.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            + New To-Do
+                        </a>
+                    </div>
+
                     <table class="min-w-full bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
                         <thead class="bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-200 uppercase text-sm font-bold">
                             <tr>
@@ -36,7 +42,6 @@
                         </tbody>
                     </table>
 
-                    <!-- Public Link Section -->
                     <div id="public-link-container" class="mt-4 hidden">
                         <p class="text-gray-700 dark:text-gray-300">
                             <strong>Public Link:</strong> 
@@ -63,16 +68,13 @@
         .then(response => response.json())
         .then(data => {
             if (data.public_link) {
-                // Format the expiration date to YYYY-MM-DD HH:mm
                 const expirationDate = new Date(data.expires_at);
                 const formattedDate = expirationDate.toISOString().slice(0, 16).replace('T', ' ');
 
-                // Update the UI with the public link and expiration date
                 document.getElementById('public-link').href = data.public_link;
                 document.getElementById('public-link').textContent = data.public_link;
                 document.getElementById('public-link-expiration').textContent = formattedDate;
 
-                // Show the public link container
                 document.getElementById('public-link-container').classList.remove('hidden');
             } else {
                 alert('Failed to generate public link.');
