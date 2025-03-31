@@ -1,66 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# To-Do List Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is a Laravel-based "To-Do List" application that allows users to manage tasks (CRUD), send email notifications, and more.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **CRUD Operations**: Add, edit, view, and delete tasks with fields like name, description, priority, status, and due date.
+- **Task Filtering**: Filter tasks by priority, status, and due date.
+- **Email Notifications**: Sends email reminders 1 day before the task's due date.
+- **Multi-User Support**: Each user can log in and manage their own tasks.
+- **Public Task Sharing**: Generate public links with access tokens for sharing tasks.
+- **Optional Features**:
+  - Full edit history of tasks.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Technologies Used
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Back-End**: Laravel 11, REST API, Eloquent ORM, MySQL.
+- **Front-End**: Laravel Blade templates.
+- **Docker**: Dockerfile and docker-compose for containerized setup.
+- **Other Tools**: Laravel Queues, Scheduler.
 
-## Learning Laravel
+## Running the Application with Docker
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone the repository:
+  ```bash
+  git clone <repository-url>
+  cd <repository-folder>
+  ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. Create the .env file:
+  ```bash
+  cp .env.example .env
+  ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Build the containers:
+  ```bash
+  docker-compose build
+  ```
 
-## Laravel Sponsors
+4. Start the containers in background:
+  ```bash
+  docker-compose up -d
+  ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+5. Do the migrations:
+  ```bash
+  docker exec -it laravel_app php artisan migrate
+  ```
 
-### Premium Partners
+6. Access the application:
+  - Open your browser and navigate to `http://localhost:8000`.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+7. Stopping the containers:
+  ```bash
+  docker-compose down
+  ```
 
-## Contributing
+## Additional Notes
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Ensure the `.env` file is properly configured for email notifications and database connections.
+- Email Notifications Setup
+This application uses Mailtrap for testing email notifications. To test email notifications, you need to set up your own Mailtrap credentials in the .env file. Follow these steps:
 
-## Code of Conduct
+Sign up for a free Mailtrap account at https://mailtrap.io.
+Once logged in, create a new inbox in Mailtrap.
+Copy the SMTP credentials from your Mailtrap inbox and update the following fields in your .env file:
+  ```bash
+  MAIL_MAILER=smtp
+  MAIL_HOST=sandbox.smtp.mailtrap.io
+  MAIL_PORT=587
+  MAIL_USERNAME=<your-mailtrap-username>
+  MAIL_PASSWORD=<your-mailtrap-password>
+  MAIL_ENCRYPTION=tls
+  MAIL_FROM_ADDRESS=your-email@example.com
+  MAIL_FROM_NAME="${APP_NAME}"
+  ```
+**Note**: I used Mailtrap to test email notifications, and it works. However, I have not provided my credentials in this repository. You need to use your own Mailtrap credentials to test this feature.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
