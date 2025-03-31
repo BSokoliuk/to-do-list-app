@@ -11,7 +11,7 @@
             @method('PUT')
             <div class="mb-4">
                 <label for="title" class="block text-gray-700 dark:text-gray-300 font-bold mb-2">Title:</label>
-                <input type="text" name="title" id="title" value={{ old('title', $todo->title) }} class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Provide the title of the task" required>
+                <input type="text" name="title" id="title" value="{{ old('title', $todo->title) }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Provide the title of the task" required>
                 @error('title')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
